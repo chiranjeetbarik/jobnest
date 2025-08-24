@@ -24,12 +24,12 @@ const Footer = () => {
                 <Search className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">JobMatchAI</h3>
+                <h3 className="text-lg font-bold text-foreground">JobNest</h3>
                 <p className="text-xs text-muted-foreground">Smart Job Discovery</p>
               </div>
             </div>
             <p className="text-muted-foreground text-sm">
-              Revolutionizing job search with AI-powered matching. Find your perfect career opportunity with our intelligent job aggregator.
+              Match you with the perfect opportunities from thousands of job listings across the web.
             </p>
             <div className="flex space-x-3">
               <Button variant="ghost" size="sm" className="p-2">
@@ -77,15 +77,15 @@ const Footer = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground">hello@jobmatchai.com</span>
+                <span className="text-muted-foreground">hello@jobnest.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                <span className="text-muted-foreground">+91 8260971233</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground">San Francisco, CA</span>
+                <span className="text-muted-foreground">Bhubaneswar, India</span>
               </div>
             </div>
             <div className="space-y-2">
@@ -106,7 +106,7 @@ const Footer = () => {
         <Separator className="my-8" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>&copy; 2024 JobMatchAI. All rights reserved.</p>
+          <p>&copy; 2024 JobNest. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>

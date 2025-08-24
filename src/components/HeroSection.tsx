@@ -30,12 +30,10 @@ const HeroSection = () => {
               Find Your{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
                 Dream Job
-              </span>{" "}
-              with AI
+              </span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Our intelligent job aggregator uses machine learning to match you with 
-              the perfect opportunities from thousands of job listings across the web.
+              Match you with the perfect opportunities from thousands of job listings across the web.
             </p>
           </div>
 
@@ -90,8 +88,8 @@ const HeroSection = () => {
                   <Zap className="h-6 w-6 text-info" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">AI-Powered</p>
-                  <p className="text-sm text-muted-foreground">Smart Matching</p>
+                  <p className="text-2xl font-bold text-foreground">Smart</p>
+                  <p className="text-sm text-muted-foreground">Job Matching</p>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
