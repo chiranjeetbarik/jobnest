@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Search, User, LogIn, LogOut } from "lucide-react";
-import { useState } from "react";
-import { AuthModal } from "./AuthModal";
+import { Link } from "react-router-dom";
+import { ArrowLeft, Search, User, LogIn, LogOut, LayoutDashboard } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useAuthModal } from '@/context/AuthModalContext';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -15,13 +15,7 @@ import {
 
 const Header = () => {
   const { user, logout, loading } = useAuth();
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
-
-  const handleAuth = (mode: "login" | "register") => {
-    setAuthMode(mode);
-    setAuthModalOpen(true);
-  };
+  const { openModal } = useAuthModal();
 
   return (
     <>
@@ -65,6 +59,13 @@ const Header = () => {
                         </p>
                       </div>
                     </DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={logout}>
                       <LogOut className="mr-2 h-4 w-4" />
@@ -77,7 +78,7 @@ const Header = () => {
                   <Button 
                     variant="outline" 
                     size="sm"
-                    onClick={() => handleAuth("login")}
+                    onClick={() => openModal('login')}
                     className="hover-lift"
                   >
                     <LogIn className="h-4 w-4 mr-2" />
@@ -85,7 +86,7 @@ const Header = () => {
                   </Button>
                   <Button 
                     size="sm"
-                    onClick={() => handleAuth("register")}
+                    onClick={() => openModal('register')}
                     className="bg-gradient-primary hover:opacity-90 hover-lift"
                   >
                     <User className="h-4 w-4 mr-2" />
@@ -98,13 +99,7 @@ const Header = () => {
         </div>
       </header>
 
-      <AuthModal 
-        open={authModalOpen}
-        onOpenChange={setAuthModalOpen}
-        mode={authMode}
-        onModeChange={setAuthMode}
-      />
-    </>
+          </>
   );
 };
 
