@@ -29,8 +29,9 @@ const HeroSection = () => {
             <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
               Find Your{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Dream Job
-              </span>
+                Perfect Career Match
+              </span>{" "}
+              Today
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Match you with the perfect opportunities from thousands of job listings across the web.
