@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 import { Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 
 interface AuthModalProps {
@@ -13,6 +15,9 @@ interface AuthModalProps {
 }
 
 export const AuthModal = ({ open, onOpenChange, mode, onModeChange }: AuthModalProps) => {
+  const { login, signup } = useAuth();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -21,11 +26,30 @@ export const AuthModal = ({ open, onOpenChange, mode, onModeChange }: AuthModalP
     confirmPassword: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle authentication logic here
-    console.log(`${mode} submitted:`, formData);
-    onOpenChange(false);
+    setIsLoading(true);
+
+    if (mode === "register" && formData.password !== formData.confirmPassword) {
+      toast({ title: "Error", description: "Passwords do not match.", variant: "destructive" });
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      if (mode === 'login') {
+        await login({ email: formData.email, password: formData.password });
+        toast({ title: "Success", description: "Logged in successfully!" });
+      } else {
+        await signup({ email: formData.email, password: formData.password });
+        toast({ title: "Success", description: "Account created! Please log in." });
+        onModeChange('login');
+      }
+      onOpenChange(false);
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    }
+    setIsLoading(false);
   };
 
   const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,6 +144,7 @@ export const AuthModal = ({ open, onOpenChange, mode, onModeChange }: AuthModalP
           <Button 
             type="submit" 
             className="w-full bg-gradient-primary hover:opacity-90 hover-lift"
+            disabled={isLoading}
           >
             {mode === "login" ? "Sign In" : "Create Account"}
           </Button>
