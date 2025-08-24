@@ -28,9 +28,9 @@ const HeroSection = () => {
           <div className="fade-in-up">
             <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
               Find Your{" "}
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Perfect Career Match
-              </span>{" "}
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+              Perfect Career Match
+            </span>{" "}
               Today
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
