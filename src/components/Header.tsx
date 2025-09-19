@@ -1,16 +1,21 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Search, User, LogIn } from "lucide-react";
-import { useState } from "react";
-import { AuthModal } from "./AuthModal";
+import { Link } from "react-router-dom";
+import { ArrowLeft, Search, User, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { useAuthModal } from '@/context/AuthModalContext';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
-
-  const handleAuth = (mode: "login" | "register") => {
-    setAuthMode(mode);
-    setAuthModalOpen(true);
-  };
+  const { user, logout, loading } = useAuth();
+  const { openModal } = useAuthModal();
 
   return (
     <>
@@ -31,37 +36,70 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-3">
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => handleAuth("login")}
-                className="hover-lift"
-              >
-                <LogIn className="h-4 w-4 mr-2" />
-                Login
-              </Button>
-              <Button 
-                size="sm"
-                onClick={() => handleAuth("register")}
-                className="bg-gradient-primary hover:opacity-90 hover-lift"
-              >
-                <User className="h-4 w-4 mr-2" />
-                Register
-              </Button>
+              {loading ? (
+                <div className="h-9 w-24 bg-muted animate-pulse rounded-md"></div>
+              ) : user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                      <Avatar className="h-9 w-9">
+                        <AvatarImage src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.email}`} alt={user.email} />
+                        <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal">
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">Logged in as</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        <span>Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={logout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => openModal('login')}
+                    className="hover-lift"
+                  >
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Login
+                  </Button>
+                  <Button 
+                    size="sm"
+                    onClick={() => openModal('register')}
+                    className="bg-gradient-primary hover:opacity-90 hover-lift"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    Register
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
       </header>
 
-      <AuthModal 
-        open={authModalOpen}
-        onOpenChange={setAuthModalOpen}
-        mode={authMode}
-        onModeChange={setAuthMode}
-      />
-    </>
+          </>
   );
 };
 

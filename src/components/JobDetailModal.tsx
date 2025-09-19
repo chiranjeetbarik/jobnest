@@ -13,6 +13,8 @@ import {
   ExternalLink,
   CheckCircle 
 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { useAuthModal } from "@/context/AuthModalContext";
 
 interface JobDetailModalProps {
   job: Job | null;
@@ -21,9 +23,16 @@ interface JobDetailModalProps {
 }
 
 export const JobDetailModal = ({ job, open, onOpenChange }: JobDetailModalProps) => {
+  const { user } = useAuth();
+  const { openModal } = useAuthModal();
+
   if (!job) return null;
 
   const handleApply = () => {
+    if (!user) {
+      openModal('login');
+      return;
+    }
     console.log("Applying to job:", job.id);
     // Handle job application logic
   };
