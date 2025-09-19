@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Search, User, LogIn, LogOut, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Search, User, LogIn, LogOut, LayoutDashboard, Settings } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useAuthModal } from '@/context/AuthModalContext';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -64,6 +64,12 @@ const Header = () => {
                       <Link to="/dashboard">
                         <LayoutDashboard className="mr-2 h-4 w-4" />
                         <span>Dashboard</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/preferences">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Preferences</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />

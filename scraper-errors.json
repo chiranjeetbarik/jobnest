@@ -1,0 +1,72 @@
+[
+  {
+    "timestamp": "2025-09-19T19:33:55.742Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "scrape_page_1",
+    "message": "Attempt 1 failed: No job listings found on Indeed page 1. Retrying in 1000ms",
+    "context": {
+      "attempt": 1,
+      "error": "No job listings found on Indeed page 1",
+      "context": {
+        "pageNum": 1,
+        "query": "software developer",
+        "location": "New York, NY"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-19T19:34:12.847Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "scrape_page_1",
+    "message": "Attempt 2 failed: No job listings found on Indeed page 1. Retrying in 2000ms",
+    "context": {
+      "attempt": 2,
+      "error": "No job listings found on Indeed page 1",
+      "context": {
+        "pageNum": 1,
+        "query": "software developer",
+        "location": "New York, NY"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-19T19:34:31.088Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "scrape_page_1",
+    "message": "Attempt 3 failed: No job listings found on Indeed page 1. Retrying in 4000ms",
+    "context": {
+      "attempt": 3,
+      "error": "No job listings found on Indeed page 1",
+      "context": {
+        "pageNum": 1,
+        "query": "software developer",
+        "location": "New York, NY"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-19T19:34:31.091Z",
+    "level": "ERROR",
+    "site": "Indeed",
+    "operation": "scrape_page_1",
+    "message": "All 3 attempts failed for scrape_page_1: No job listings found on Indeed page 1",
+    "context": {
+      "finalError": "No job listings found on Indeed page 1",
+      "context": {
+        "pageNum": 1,
+        "query": "software developer",
+        "location": "New York, NY"
+      }
+    }
+  },
+  {
+    "timestamp": "2025-09-19T19:34:31.093Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "SCRAPE_PAGE",
+    "message": "No jobs found on page 1, stopping pagination"
+  }
+]

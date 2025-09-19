@@ -2,17 +2,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { jobCategories, JobCategory } from "@/data/jobCategories";
-import { useState } from "react";
-import { JobDetailModal } from "./JobDetailModal";
+import { useNavigate } from "react-router-dom";
+import { useJobStats } from "@/hooks/useJobs";
 import * as Icons from "lucide-react";
 
 const JobCategories = () => {
-  const [selectedJob, setSelectedJob] = useState<any>(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const { data: stats } = useJobStats();
 
   const handleCategoryClick = (category: JobCategory) => {
-    setSelectedJob(category.sampleJob);
-    setModalOpen(true);
+    navigate(`/category/${category.id}`);
   };
 
   const getIcon = (iconName: string) => {
@@ -29,7 +28,7 @@ const JobCategories = () => {
               Explore Job Categories
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Discover opportunities across various industries. Click on any category to see sample job postings.
+              Discover opportunities across various industries. Click on any category to see real job listings from our database.
             </p>
           </div>
 
@@ -65,7 +64,7 @@ const JobCategories = () => {
                       size="sm" 
                       className="mt-3 group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
                     >
-                      View Details
+                      Browse Jobs
                     </Button>
                   </div>
                 </CardContent>
@@ -77,18 +76,13 @@ const JobCategories = () => {
             <Button 
               size="lg"
               className="bg-gradient-primary hover:opacity-90 hover-lift px-8"
+              onClick={() => navigate('/search')}
             >
               Browse All Categories
             </Button>
           </div>
         </div>
       </section>
-
-      <JobDetailModal
-        job={selectedJob}
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-      />
     </>
   );
 };

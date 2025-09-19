@@ -2,15 +2,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Briefcase, Zap } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useJobStats } from "@/hooks/useJobs";
 import heroImage from "@/assets/hero-job-search.jpg";
 
 const HeroSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState("");
+  const { data: stats, isLoading } = useJobStats();
+  const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery, "in", location);
+    
+    // Create search parameters
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) {
+      params.set('search', searchQuery.trim());
+    }
+    if (location.trim()) {
+      params.set('location', location.trim());
+    }
+    
+    // Navigate to search results page
+    navigate(`/search?${params.toString()}`);
   };
 
   return (
@@ -80,7 +95,9 @@ const HeroSection = () => {
                   <Briefcase className="h-6 w-6 text-success" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">10k+</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {isLoading ? "..." : stats?.totalJobs ? `${(stats.totalJobs / 1000).toFixed(1)}k+` : "0"}
+                  </p>
                   <p className="text-sm text-muted-foreground">Jobs Listed</p>
                 </div>
               </div>
@@ -98,8 +115,10 @@ const HeroSection = () => {
                   <Search className="h-6 w-6 text-warning" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">Real-time</p>
-                  <p className="text-sm text-muted-foreground">Updates</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {isLoading ? "..." : stats?.recentJobs || "0"}
+                  </p>
+                  <p className="text-sm text-muted-foreground">New Today</p>
                 </div>
               </div>
             </div>
