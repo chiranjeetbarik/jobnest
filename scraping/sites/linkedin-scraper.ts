@@ -61,7 +61,7 @@ export class LinkedInScraper extends BaseScraper {
           const linkElement = card.querySelector(selectors.link) || 
                              card.querySelector('a[data-control-name="job_search_job_result_click"]');
           
-          const salaryElement = card.querySelector(selectors.salary);
+          const salaryElement = card.querySelector(selectors.salary ?? '');
 
           const title = titleElement?.textContent?.trim();
           const company = companyElement?.textContent?.trim();

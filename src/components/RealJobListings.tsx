@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useJobs } from "@/hooks/useJobs";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { JobDetailModal } from "./JobDetailModal";
 import { ExternalLink, MapPin, Building2, Clock } from "lucide-react";
 
@@ -11,6 +12,7 @@ const RealJobListings = () => {
   const { data, isLoading, error } = useJobs({ limit: 12 });
   const [selectedJob, setSelectedJob] = useState<any>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleJobClick = (job: any) => {
     setSelectedJob({
@@ -164,6 +166,7 @@ const RealJobListings = () => {
             <Button 
               size="lg"
               className="bg-gradient-primary hover:opacity-90 hover-lift px-8"
+              onClick={() => navigate('/search')}
             >
               View All Jobs ({data?.pagination.totalJobs || 0})
             </Button>

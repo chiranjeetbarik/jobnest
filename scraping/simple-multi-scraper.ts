@@ -7,7 +7,9 @@ import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config();
-puppeteer.use(StealthPlugin());
+// Type assertion to fix TypeScript issues
+const puppeteerExtra = puppeteer as any;
+puppeteerExtra.use(StealthPlugin());
 
 interface JobListing {
   title: string;
@@ -39,7 +41,7 @@ class SimpleMultiScraper {
   async initialize() {
     try {
       this.log('Initializing browser for multi-site scraping...');
-      this.browser = await puppeteer.launch({ 
+      this.browser = await puppeteerExtra.launch({ 
         headless: true,
         args: [
           '--no-sandbox', 

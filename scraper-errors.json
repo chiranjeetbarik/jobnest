@@ -1,72 +1,419 @@
 [
   {
-    "timestamp": "2025-09-19T19:33:55.742Z",
+    "timestamp": "2025-09-20T05:23:04.700Z",
     "level": "WARN",
-    "site": "Indeed",
-    "operation": "scrape_page_1",
-    "message": "Attempt 1 failed: No job listings found on Indeed page 1. Retrying in 1000ms",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 1: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "attempt": 1,
-      "error": "No job listings found on Indeed page 1",
-      "context": {
-        "pageNum": 1,
-        "query": "software developer",
-        "location": "New York, NY"
-      }
+      "pageNum": 3
     }
   },
   {
-    "timestamp": "2025-09-19T19:34:12.847Z",
+    "timestamp": "2025-09-20T05:23:04.708Z",
     "level": "WARN",
-    "site": "Indeed",
-    "operation": "scrape_page_1",
-    "message": "Attempt 2 failed: No job listings found on Indeed page 1. Retrying in 2000ms",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 2: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "attempt": 2,
-      "error": "No job listings found on Indeed page 1",
-      "context": {
-        "pageNum": 1,
-        "query": "software developer",
-        "location": "New York, NY"
-      }
+      "pageNum": 3
     }
   },
   {
-    "timestamp": "2025-09-19T19:34:31.088Z",
+    "timestamp": "2025-09-20T05:23:04.715Z",
     "level": "WARN",
-    "site": "Indeed",
-    "operation": "scrape_page_1",
-    "message": "Attempt 3 failed: No job listings found on Indeed page 1. Retrying in 4000ms",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 3: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "attempt": 3,
-      "error": "No job listings found on Indeed page 1",
-      "context": {
-        "pageNum": 1,
-        "query": "software developer",
-        "location": "New York, NY"
-      }
+      "pageNum": 3
     }
   },
   {
-    "timestamp": "2025-09-19T19:34:31.091Z",
-    "level": "ERROR",
-    "site": "Indeed",
-    "operation": "scrape_page_1",
-    "message": "All 3 attempts failed for scrape_page_1: No job listings found on Indeed page 1",
+    "timestamp": "2025-09-20T05:23:04.720Z",
+    "level": "WARN",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 4: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "finalError": "No job listings found on Indeed page 1",
-      "context": {
-        "pageNum": 1,
-        "query": "software developer",
-        "location": "New York, NY"
-      }
+      "pageNum": 3
     }
   },
   {
-    "timestamp": "2025-09-19T19:34:31.093Z",
+    "timestamp": "2025-09-20T05:23:04.727Z",
     "level": "WARN",
-    "site": "Indeed",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 5: Missing required fields - title: false, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 3
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:04.740Z",
+    "level": "WARN",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 6: Missing required fields - title: false, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 3
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:04.750Z",
+    "level": "WARN",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 7: Missing required fields - title: false, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 3
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:04.767Z",
+    "level": "WARN",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 8: Missing required fields - title: false, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 3
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:04.781Z",
+    "level": "WARN",
+    "site": "RemoteOK",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 9: Missing required fields - title: false, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 3
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:04.794Z",
+    "level": "WARN",
+    "site": "RemoteOK",
     "operation": "SCRAPE_PAGE",
-    "message": "No jobs found on page 1, stopping pagination"
+    "message": "No jobs found on page 3, stopping pagination"
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.841Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 2: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.846Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 4: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.851Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 6: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.856Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 8: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.862Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 10: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.870Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 12: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.877Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 14: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.883Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 16: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.892Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 18: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.897Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 20: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.903Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 22: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.908Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 24: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.913Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 26: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.919Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 28: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.925Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 30: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:16.931Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 32: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 1
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.306Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 2: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.313Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 4: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.318Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 6: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.324Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 8: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.331Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 10: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.340Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 12: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.347Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 14: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.353Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 16: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.361Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 18: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.368Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 20: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.374Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 22: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.382Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 24: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.389Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 26: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.402Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 28: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.409Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 30: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
+  },
+  {
+    "timestamp": "2025-09-20T05:23:25.417Z",
+    "level": "WARN",
+    "site": "Indeed",
+    "operation": "EXTRACT_JOB",
+    "message": "Job 32: Missing required fields - title: true, company: false, jobUrl: false",
+    "context": {
+      "pageNum": 2
+    }
   }
 ]

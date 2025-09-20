@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Search, User, LogIn, LogOut, LayoutDashboard, Settings } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { useAuthModal } from '@/context/AuthModalContext';
@@ -16,6 +16,7 @@ import {
 const Header = () => {
   const { user, logout, loading } = useAuth();
   const { openModal } = useAuthModal();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -23,7 +24,7 @@ const Header = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="p-2">
+              <Button variant="ghost" size="sm" className="p-2" onClick={() => navigate(-1)}>
                 <ArrowLeft className="h-4 w-4" />
               </Button>
               <div className="flex items-center space-x-2">
