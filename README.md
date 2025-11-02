@@ -44,30 +44,48 @@ npm run dev
 
 **Use GitHub Codespaces**
 
-- Navigate to the main page of your repository.
 - Click on the "Code" button (green button) near the top right.
 - Select the "Codespaces" tab.
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+  ## What technologies are used for this project?
 
-This project is built with:
+  This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+  - Vite
+  - TypeScript
+  - React
+  - shadcn-ui
+  - Tailwind CSS
 
-## How can I deploy this project?
+## Intelligent Search (NLP + TF-IDF)
 
-Simply open [Lovable](https://lovable.dev/projects/96f59291-380a-44fe-a052-4a3b6ac9db4e) and click on Share -> Publish.
+The app includes an intelligent search pipeline that tokenizes text, removes stopwords, builds TF–IDF vectors, and ranks jobs by cosine similarity with optional user-preference boosts.
 
-## Can I connect a custom domain to my Lovable project?
+- **Backend endpoint**: `api/search.ts`
+  - Query params: `page`, `limit`, `search`, `location`, `source`, `preferences` (JSON string)
+  - Returns: `{ jobs, pagination, stats }`
+- **Frontend client**: `src/api/search.ts` (falls back to client-side TF‑IDF if backend not available)
+- **Hook**: `useSmartJobs()` in `src/hooks/useJobs.ts`
 
-Yes, you can!
+### Local run
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Install and start:
+   ```bash
+   npm i
+   npm run dev
+   ```
+2. Optional: set `MONGODB_URI` in `.env` to enable `/api/search` against MongoDB (`jobnest.raw_jobs`). Without it, client fallback ranking is used.
+3. Set preferences on `Preferences` page to personalize results.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Example API calls
+
+```bash
+curl "http://localhost:5173/api/search?search=react%20developer&location=Remote&limit=20&page=1"
+```
+
+With preferences:
+
+```bash
+curl "http://localhost:5173/api/search?search=machine%20learning&preferences=%7B%22preferredCategories%22%3A%5B%22Data%20Science%20%26%20AI%22%5D%2C%22preferredLocations%22%3A%5B%22Bangalore%2C%20India%22%5D%2C%22remoteWork%22%3Atrue%7D"

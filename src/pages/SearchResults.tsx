@@ -1,6 +1,7 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useJobs } from "@/hooks/useJobs";
+import { useSmartJobs } from "@/hooks/useJobs";
+import { usePreferences } from "@/context/PreferencesContext";
 import { useJobActions } from "@/context/JobActionsContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -40,14 +41,17 @@ const SearchResults = () => {
   const [currentPage, setCurrentPage] = useState(1);
   
   const { saveJob, applyToJob, isJobSaved, isJobApplied } = useJobActions();
+  const { preferences } = usePreferences();
 
   // Fetch jobs with current search parameters
-  const { data, isLoading, error } = useJobs({
+  const { data, isLoading, error } = useSmartJobs({
     page: currentPage,
     limit: 20,
     search: searchQuery,
     location: locationFilter,
-    source: sourceFilter
+    source: sourceFilter,
+    usePreferences: true,
+    preferences
   });
 
   // Debug logging
@@ -61,10 +65,11 @@ const SearchResults = () => {
   useEffect(() => {
     const testFetch = async () => {
       try {
-        const { fetchJobs } = await import('@/api/jobs');
-        const result = await fetchJobs({
+        const { smartSearch } = await import('@/api/search');
+        const result = await smartSearch({
           search: searchQuery,
-          location: locationFilter
+          location: locationFilter,
+          preferences
         });
         console.log('Direct fetchJobs result:', result);
       } catch (err) {
@@ -72,7 +77,7 @@ const SearchResults = () => {
       }
     };
     testFetch();
-  }, [searchQuery, locationFilter]);
+  }, [searchQuery, locationFilter, preferences]);
 
   const handleJobClick = (job: any) => {
     setSelectedJob({
@@ -280,9 +285,9 @@ const SearchResults = () => {
                     <Badge variant="secondary" className="px-3 py-1">
                       {data.pagination.totalJobs} Total Results
                     </Badge>
-                    {Object.entries(data.stats).map(([source, count]) => (
+                    {Object.entries(data.stats as Record<string, number>).map(([source, count]) => (
                       <Badge key={source} variant="outline" className="px-3 py-1">
-                        {source}: {count}
+                        {source}: {String(count)}
                       </Badge>
                     ))}
                   </div>

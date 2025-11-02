@@ -1,103 +1,103 @@
 [
   {
-    "timestamp": "2025-09-20T05:23:04.700Z",
+    "timestamp": "2025-10-06T15:09:09.666Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 1: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.708Z",
+    "timestamp": "2025-10-06T15:09:09.691Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 2: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.715Z",
+    "timestamp": "2025-10-06T15:09:09.696Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 3: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.720Z",
+    "timestamp": "2025-10-06T15:09:09.703Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 4: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.727Z",
+    "timestamp": "2025-10-06T15:09:09.709Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 5: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.740Z",
+    "timestamp": "2025-10-06T15:09:09.714Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 6: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.750Z",
+    "timestamp": "2025-10-06T15:09:09.719Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 7: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.767Z",
+    "timestamp": "2025-10-06T15:09:09.724Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 8: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.781Z",
+    "timestamp": "2025-10-06T15:09:09.729Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "EXTRACT_JOB",
     "message": "Job 9: Missing required fields - title: false, company: false, jobUrl: false",
     "context": {
-      "pageNum": 3
+      "pageNum": 1
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:04.794Z",
+    "timestamp": "2025-10-06T15:09:09.738Z",
     "level": "WARN",
     "site": "RemoteOK",
     "operation": "SCRAPE_PAGE",
-    "message": "No jobs found on page 3, stopping pagination"
+    "message": "No jobs found on page 1, stopping pagination"
   },
   {
-    "timestamp": "2025-09-20T05:23:16.841Z",
+    "timestamp": "2025-10-06T15:09:19.964Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -107,7 +107,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.846Z",
+    "timestamp": "2025-10-06T15:09:19.969Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -117,7 +117,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.851Z",
+    "timestamp": "2025-10-06T15:09:19.974Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -127,7 +127,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.856Z",
+    "timestamp": "2025-10-06T15:09:19.981Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -137,7 +137,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.862Z",
+    "timestamp": "2025-10-06T15:09:19.987Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -147,7 +147,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.870Z",
+    "timestamp": "2025-10-06T15:09:19.992Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -157,7 +157,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.877Z",
+    "timestamp": "2025-10-06T15:09:19.999Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -167,7 +167,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.883Z",
+    "timestamp": "2025-10-06T15:09:20.005Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -177,7 +177,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.892Z",
+    "timestamp": "2025-10-06T15:09:20.011Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -187,7 +187,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.897Z",
+    "timestamp": "2025-10-06T15:09:20.018Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -197,7 +197,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.903Z",
+    "timestamp": "2025-10-06T15:09:20.024Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -207,7 +207,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.908Z",
+    "timestamp": "2025-10-06T15:09:20.031Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -217,7 +217,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.913Z",
+    "timestamp": "2025-10-06T15:09:20.036Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -227,7 +227,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.919Z",
+    "timestamp": "2025-10-06T15:09:20.043Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -237,7 +237,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.925Z",
+    "timestamp": "2025-10-06T15:09:20.048Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -247,7 +247,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:16.931Z",
+    "timestamp": "2025-10-06T15:09:20.055Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -257,7 +257,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.306Z",
+    "timestamp": "2025-10-06T15:09:28.003Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -267,7 +267,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.313Z",
+    "timestamp": "2025-10-06T15:09:28.006Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -277,7 +277,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.318Z",
+    "timestamp": "2025-10-06T15:09:28.009Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -287,7 +287,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.324Z",
+    "timestamp": "2025-10-06T15:09:28.013Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -297,7 +297,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.331Z",
+    "timestamp": "2025-10-06T15:09:28.025Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -307,7 +307,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.340Z",
+    "timestamp": "2025-10-06T15:09:28.031Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -317,7 +317,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.347Z",
+    "timestamp": "2025-10-06T15:09:28.036Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -327,7 +327,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.353Z",
+    "timestamp": "2025-10-06T15:09:28.038Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -337,7 +337,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.361Z",
+    "timestamp": "2025-10-06T15:09:28.041Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -347,7 +347,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.368Z",
+    "timestamp": "2025-10-06T15:09:28.048Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -357,7 +357,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.374Z",
+    "timestamp": "2025-10-06T15:09:28.053Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -367,7 +367,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.382Z",
+    "timestamp": "2025-10-06T15:09:28.056Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -377,7 +377,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.389Z",
+    "timestamp": "2025-10-06T15:09:28.061Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -387,7 +387,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.402Z",
+    "timestamp": "2025-10-06T15:09:28.064Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -397,7 +397,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.409Z",
+    "timestamp": "2025-10-06T15:09:28.069Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
@@ -407,7 +407,7 @@
     }
   },
   {
-    "timestamp": "2025-09-20T05:23:25.417Z",
+    "timestamp": "2025-10-06T15:09:28.075Z",
     "level": "WARN",
     "site": "Indeed",
     "operation": "EXTRACT_JOB",
