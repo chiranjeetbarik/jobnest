@@ -24,8 +24,8 @@ const RealJobListings = () => {
       requirements: ["Check job URL for requirements"],
       salary: job.salary || "Salary not specified",
       type: "Full-time",
-      posted: new Date(job.scrapedAt).toLocaleDateString(),
-      url: job.jobUrl
+      postedDate: new Date(job.scrapedAt).toLocaleDateString(),
+      jobUrl: job.jobUrl
     });
     setModalOpen(true);
   };
@@ -142,6 +142,7 @@ const RealJobListings = () => {
                           variant="outline" 
                           size="sm" 
                           className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                          onClick={(e) => { e.stopPropagation(); handleJobClick(job); }}
                         >
                           View Details
                         </Button>

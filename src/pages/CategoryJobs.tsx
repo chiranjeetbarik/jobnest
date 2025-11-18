@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useJobs } from "@/hooks/useJobs";
+import { useSmartJobs } from "@/hooks/useJobs";
 import { useJobActions } from "@/context/JobActionsContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -63,10 +63,11 @@ const CategoryJobs = () => {
   };
 
   const searchTerms = category ? getCategorySearchTerms(category.name) : [];
-  const searchQuery_combined = searchQuery || searchTerms.join(" OR ");
+  // Use a single representative keyword to avoid overly strict AND matching in fallback filtering
+  const searchQuery_combined = searchQuery || (searchTerms.length > 0 ? searchTerms[0] : "");
 
   // Fetch jobs with category-specific search
-  const { data, isLoading, error } = useJobs({
+  const { data, isLoading, error } = useSmartJobs({
     page: currentPage,
     limit: 20,
     search: searchQuery_combined,
@@ -84,8 +85,8 @@ const CategoryJobs = () => {
       requirements: ["Check job URL for requirements"],
       salary: job.salary || "Salary not specified",
       type: "Full-time",
-      posted: new Date(job.scrapedAt).toLocaleDateString(),
-      url: job.jobUrl
+      postedDate: new Date(job.scrapedAt).toLocaleDateString(),
+      jobUrl: job.jobUrl
     });
     setModalOpen(true);
   };
@@ -212,13 +213,16 @@ const CategoryJobs = () => {
                   />
                 </div>
 
-                <Select value={sourceFilter} onValueChange={setSourceFilter}>
+                <Select 
+                  value={sourceFilter || 'all'} 
+                  onValueChange={(val) => setSourceFilter(val === 'all' ? '' : val)}
+                >
                   <SelectTrigger className="h-12 w-full md:w-48">
                     <SlidersHorizontal className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="All Sources" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Sources</SelectItem>
+                    <SelectItem value="all">All Sources</SelectItem>
                     <SelectItem value="Indeed">Indeed</SelectItem>
                     <SelectItem value="RemoteOK">RemoteOK</SelectItem>
                     <SelectItem value="Glassdoor">Glassdoor</SelectItem>
@@ -338,6 +342,7 @@ const CategoryJobs = () => {
                             variant="outline" 
                             size="sm" 
                             className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                            onClick={(e) => { e.stopPropagation(); handleJobClick(job); }}
                           >
                             View Details
                           </Button>

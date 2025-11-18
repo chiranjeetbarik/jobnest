@@ -4,11 +4,21 @@ import { Button } from "@/components/ui/button";
 import { jobCategories, JobCategory } from "@/data/jobCategories";
 import { useNavigate } from "react-router-dom";
 import { useJobStats } from "@/hooks/useJobs";
+import { useEffect, useState } from "react";
+import { fetchCategoryCounts } from "@/api/categoryCounts";
 import * as Icons from "lucide-react";
 
 const JobCategories = () => {
   const navigate = useNavigate();
   const { data: stats } = useJobStats();
+  const [counts, setCounts] = useState<Record<string, number> | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const c = await fetchCategoryCounts();
+      setCounts(c);
+    })();
+  }, []);
 
   const handleCategoryClick = (category: JobCategory) => {
     navigate(`/category/${category.id}`);
@@ -46,9 +56,11 @@ const JobCategories = () => {
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {category.name}
                   </h3>
-                  <p className="text-muted-foreground mb-4">
-                    {category.jobCount.toLocaleString()} jobs available
-                  </p>
+                  {counts && typeof counts[category.id] === 'number' && (
+                    <p className="text-muted-foreground mb-4">
+                      {counts[category.id].toLocaleString()} jobs available
+                    </p>
+                  )}
                   <div className="space-y-2">
                     <Badge variant="secondary" className="bg-accent/50">
                       {category.sampleJob.company}
@@ -56,13 +68,11 @@ const JobCategories = () => {
                     <p className="text-sm text-foreground font-medium">
                       {category.sampleJob.title}
                     </p>
-                    <p className="text-sm text-muted-foreground">
-                      {category.sampleJob.location}
-                    </p>
+                    {/* Removed sample location from card */}
                     <Button 
                       variant="outline" 
-                      size="sm" 
                       className="mt-3 group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                      onClick={(e) => { e.stopPropagation(); navigate(`/category/${category.id}`); }}
                     >
                       Browse Jobs
                     </Button>
@@ -71,7 +81,6 @@ const JobCategories = () => {
               </Card>
             ))}
           </div>
-
           <div className="text-center mt-12 fade-in-up stagger-4">
             <Button 
               size="lg"

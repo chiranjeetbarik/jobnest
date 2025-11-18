@@ -12,6 +12,11 @@ interface Job {
   salary?: string;
   source: string;
   scrapedAt: string;
+  // Optional ML metadata from intelligent search
+  score?: number;
+  subscores?: { tfidf: number; recency: number; pref: number };
+  reasons?: string[];
+  matchedTerms?: string[];
 }
 
 export interface JobsResponse {

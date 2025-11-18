@@ -1,5 +1,7 @@
 import { MongoClient } from 'mongodb';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { tokenize, buildTf, cosineSim } from './utils/nlp.ts';
+import { normalizeJob, dedupeKey } from './utils/jobs.ts';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
@@ -14,53 +16,51 @@ async function connectToDatabase() {
   return client;
 }
 
-// Very simple English stopword list
-const STOPWORDS = new Set([
-  'a','an','the','and','or','but','if','then','else','for','of','on','in','to','with','by','at','from','as','is','are','was','were','be','been','being','this','that','these','those','it','its','into','over','under','about','your','you','we','our','their','they'
-]);
-
-function tokenize(text: string): string[] {
-  return (text || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9+.# ]+/g, ' ') // keep tech tokens like c++, node.js
-    .split(/\s+/)
-    .filter(t => t && !STOPWORDS.has(t));
-}
-
-function buildTf(tokens: string[]): Map<string, number> {
-  const tf = new Map<string, number>();
-  for (const t of tokens) tf.set(t, (tf.get(t) || 0) + 1);
-  return tf;
-}
-
-function cosineSim(a: Map<string, number>, b: Map<string, number>): number {
-  let dot = 0, a2 = 0, b2 = 0;
-  const allKeys = new Set([...a.keys(), ...b.keys()]);
-  for (const k of allKeys) {
-    const av = a.get(k) || 0;
-    const bv = b.get(k) || 0;
-    dot += av * bv;
-    a2 += av * av;
-    b2 += bv * bv;
-  }
-  if (a2 === 0 || b2 === 0) return 0;
-  return dot / (Math.sqrt(a2) * Math.sqrt(b2));
-}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+  const useRes = typeof (res as any)?.status === 'function';
+  const send = (status: number, body: any) => {
+    if (useRes) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      return (res as any).status(status).json(body);
+    }
+    return new Response(JSON.stringify(body), {
+      status,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      }
+    });
+  };
+
+  // CORS + method
+  if (req.method === 'OPTIONS') return send(200, {});
+  if (req.method !== 'GET') return send(405, { error: 'Method not allowed' });
 
   try {
     const client = await connectToDatabase();
     const db = client.db('jobnest');
     const collection = db.collection('raw_jobs');
 
-    const { page = '1', limit = '20', search = '', location = '', source = '', preferences: prefJson = '' } = req.query as Record<string, string>;
+    // Read query params robustly across runtimes
+    const q: Record<string, string> = (() => {
+      const anyReq: any = req as any;
+      if (anyReq?.query && typeof anyReq.query === 'object') return anyReq.query;
+      try {
+        const u = new URL(anyReq?.url || '/', 'http://localhost');
+        const o: Record<string, string> = {};
+        u.searchParams.forEach((v, k) => { o[k] = v; });
+        return o;
+      } catch {
+        return {} as Record<string, string>;
+      }
+    })();
+
+    const { page = '1', limit = '20', search = '', location = '', source = '', preferences: prefJson = '' } = q;
 
     const pageNum = parseInt(page as string);
     const limitNum = parseInt(limit as string);
@@ -77,11 +77,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (source) query.source = source;
 
     // Pull a window of recent docs first to score. If there are many, cap to 500 for performance
-    const candidates = await collection
+    const rawCandidates = await collection
       .find(query)
       .sort({ scrapedAt: -1 })
       .limit(500)
       .toArray();
+
+    // Normalize and de-duplicate
+    const seenKeys = new Set<string>();
+    const candidates = rawCandidates
+      .map(normalizeJob)
+      .filter((job) => {
+        const key = dedupeKey(job);
+        if (seenKeys.has(key)) return false;
+        seenKeys.add(key);
+        return true;
+      });
 
     const preferences = (() => {
       try { return prefJson ? JSON.parse(prefJson) : {}; } catch { return {}; }
@@ -90,8 +101,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const queryTokens = tokenize(String(search || ''));
     const queryTf = buildTf(queryTokens);
 
-    function prefBoost(job: any): number {
+    function prefBoost(job: any): { multiplier: number; reasons: string[] } {
       let boost = 1;
+      const reasons: string[] = [];
       const title = (job.title || '').toLowerCase();
       const loc = (job.location || '').toLowerCase();
 
@@ -107,36 +119,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           const kws = categoryKeywords[c] || [c.toLowerCase()];
           return kws.some((k: string) => title.includes(k));
         });
-        if (hit) boost *= 1.2;
+        if (hit) { boost *= 1.2; reasons.push('Preference: category match'); }
       }
 
       if (Array.isArray(preferences.preferredLocations) && preferences.preferredLocations.length) {
         const hit = preferences.preferredLocations.some((l: string) => loc.includes(String(l).toLowerCase()));
-        if (hit) boost *= 1.15;
+        if (hit) { boost *= 1.15; reasons.push('Preference: location match'); }
       }
 
       if (preferences.remoteWork) {
-        if (loc.includes('remote')) boost *= 1.1;
+        if (loc.includes('remote')) { boost *= 1.1; reasons.push('Preference: remote'); }
       }
 
       if (Array.isArray(preferences.requiredSkills) && preferences.requiredSkills.length) {
         const hit = preferences.requiredSkills.some((s: string) => title.includes(String(s).toLowerCase()));
-        if (hit) boost *= 1.15;
+        if (hit) { boost *= 1.15; reasons.push('Preference: skill match'); }
       }
 
       if (Array.isArray(preferences.excludeKeywords) && preferences.excludeKeywords.length) {
         const bad = preferences.excludeKeywords.some((k: string) => title.includes(String(k).toLowerCase()));
-        if (bad) boost *= 0.7;
+        if (bad) { boost *= 0.7; reasons.push('Excluded keyword present'); }
       }
-
-      return boost;
+      return { multiplier: boost, reasons };
     }
 
     // Precompute document vectors using TF only (IDF is approximated by token rarity across candidates)
     const docTfs: Map<string, number>[] = [];
     const df = new Map<string, number>();
     for (const job of candidates) {
-      const text = `${job.title || ''} ${job.company || ''} ${job.location || ''}`;
+      const text = `${job.title || ''} ${job.company || ''} ${job.location || ''} ${job.description || ''}`;
       const tokens = tokenize(text);
       const tf = buildTf(tokens);
       docTfs.push(tf);
@@ -173,15 +184,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // More recent => higher score (decay)
         return 1 / Math.log10(10 + hours);
       })();
-      const score = base * 0.7 + recency * 0.1;
-      const boosted = score * prefBoost(job);
-      return { job, score: boosted };
+      const baseScore = base * 0.7 + recency * 0.1;
+      const { multiplier, reasons } = prefBoost(job);
+      const finalScore = baseScore * multiplier;
+
+      // simple matched terms extraction for explanations
+      const docTokens = Array.from(docTfs[idx].keys());
+      const matchedTerms = Array.from(new Set(tokenize(String(search || '')).filter(t => docTokens.includes(t))));
+
+      return {
+        job,
+        score: finalScore,
+        subscores: { tfidf: base, recency, pref: multiplier },
+        reasons: [
+          ...(base > 0 ? ['TF-IDF match'] : []),
+          ...(reasons.length ? reasons : []),
+        ],
+        matchedTerms
+      };
     })
     .sort((a, b) => b.score - a.score);
 
     const totalJobs = scored.length;
     const totalPages = Math.ceil(totalJobs / limitNum);
-    const pageItems = scored.slice(skip, skip + limitNum).map(({ job }) => ({
+    const pageItems = scored.slice(skip, skip + limitNum).map(({ job, score, subscores, reasons, matchedTerms }) => ({
       id: job._id,
       title: job.title,
       company: job.company,
@@ -189,7 +215,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       jobUrl: job.jobUrl,
       salary: job.salary,
       source: job.source,
-      scrapedAt: job.scrapedAt
+      scrapedAt: job.scrapedAt,
+      // ML metadata for UI (optional usage)
+      score,
+      subscores,
+      reasons,
+      matchedTerms
     }));
 
     // Basic stats by source
@@ -198,7 +229,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return acc;
     }, {} as Record<string, number>);
 
-    return res.status(200).json({
+    return send(200, {
       jobs: pageItems,
       pagination: {
         currentPage: pageNum,
@@ -211,6 +242,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (error) {
     console.error('Search error:', error);
-    return res.status(500).json({ error: 'Failed to search jobs' });
+    return send(500, { error: 'Failed to search jobs' });
   }
 }

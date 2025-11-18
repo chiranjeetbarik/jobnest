@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -89,8 +90,8 @@ const SearchResults = () => {
       requirements: ["Check job URL for requirements"],
       salary: job.salary || "Salary not specified",
       type: "Full-time",
-      posted: new Date(job.scrapedAt).toLocaleDateString(),
-      url: job.jobUrl
+      postedDate: new Date(job.scrapedAt).toLocaleDateString(),
+      jobUrl: job.jobUrl
     });
     setModalOpen(true);
   };
@@ -202,13 +203,16 @@ const SearchResults = () => {
                     />
                   </div>
 
-                  <Select value={sourceFilter} onValueChange={setSourceFilter}>
+                  <Select 
+                    value={sourceFilter || 'all'} 
+                    onValueChange={(val) => setSourceFilter(val === 'all' ? '' : val)}
+                  >
                     <SelectTrigger className="h-12 w-full md:w-48">
                       <SlidersHorizontal className="mr-2 h-4 w-4" />
                       <SelectValue placeholder="All Sources" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All Sources</SelectItem>
+                      <SelectItem value="all">All Sources</SelectItem>
                       <SelectItem value="Indeed">Indeed</SelectItem>
                       <SelectItem value="RemoteOK">RemoteOK</SelectItem>
                       <SelectItem value="Glassdoor">Glassdoor</SelectItem>
@@ -313,9 +317,37 @@ const SearchResults = () => {
                           >
                             {job.source}
                           </Badge>
-                          <div className="flex items-center text-xs text-muted-foreground">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {formatTimeAgo(job.scrapedAt)}
+                          <div className="flex items-center gap-2">
+                            {typeof job.score === 'number' && (
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
+                                      Relevance {Math.round((job.score as number) * 100) / 100}
+                                    </Badge>
+                                  </TooltipTrigger>
+                                  <TooltipContent className="max-w-xs text-xs">
+                                    <div className="font-semibold mb-1">Why this result</div>
+                                    {Array.isArray((job as any).reasons) && (job as any).reasons.length > 0 ? (
+                                      <ul className="list-disc pl-4">
+                                        {(job as any).reasons.slice(0,4).map((r: string, i: number) => (
+                                          <li key={i}>{r}</li>
+                                        ))}
+                                      </ul>
+                                    ) : (
+                                      <div>No specific reasons available</div>
+                                    )}
+                                    {Array.isArray((job as any).matchedTerms) && (job as any).matchedTerms.length > 0 && (
+                                      <div className="mt-1">Matched: {(job as any).matchedTerms.slice(0,5).join(', ')}</div>
+                                    )}
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            )}
+                            <div className="flex items-center text-xs text-muted-foreground">
+                              <Clock className="h-3 w-3 mr-1" />
+                              {formatTimeAgo(job.scrapedAt)}
+                            </div>
                           </div>
                         </div>
                         

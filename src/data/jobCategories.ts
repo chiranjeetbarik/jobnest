@@ -9,6 +9,7 @@ export interface Job {
   requirements: string[];
   postedDate: string;
   featured?: boolean;
+  jobUrl?: string;
 }
 
 export interface JobCategory {
